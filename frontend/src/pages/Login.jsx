@@ -1,22 +1,27 @@
 import React from "react";
 import styles from "./Login.module.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import googleLogo from '../assets/download.png';
 
-export default function Login() {
+export default function Login({ onLogin }) {
   const navigate = useNavigate();
 
   function handleLogin(e) {
     e.preventDefault();
-    // Placeholder: in a real app you'd send credentials to backend
     alert("Logged in (placeholder).");
+
+    // Call onLogin if it exists
+    if (onLogin) onLogin();
+
+    // Navigate to developer page
     navigate("/developer");
   }
 
   function handleGoogleLogin() {
-    // Placeholder for Google Sign-In
     alert(
       "Google Login clicked — this is a placeholder. Add your Google OAuth client integration."
     );
+    if (onLogin) onLogin(); // optional: mark user as logged in
     navigate("/developer");
   }
 
@@ -45,18 +50,19 @@ export default function Login() {
         <div className={styles.divider}>
           <span>or</span>
         </div>
-
+        <div className="centerContainer">
         <button
           type="button"
           className={styles.googleBtn}
           onClick={handleGoogleLogin}
         >
-          <img src="/google-icon.svg" alt="Google" />
+          <img src={googleLogo} alt="Google" />
           Login with Google
         </button>
+        </div>
 
         <p className={styles.footerText}>
-          Don’t have an account? <a href="#">Sign up</a>
+          Don’t have an account? <Link to="/signup">Sign up</Link>
         </p>
       </div>
     </main>
