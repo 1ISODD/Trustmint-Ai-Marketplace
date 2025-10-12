@@ -3,7 +3,8 @@
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background: var(--background);
+  background: var(--background);    
+  height: 100vh;  
 }
 
 .card {
@@ -93,7 +94,7 @@
 }
 
 .googleBtn {
-  display: flex;
+  /* display: flex; */
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
@@ -113,6 +114,8 @@
 .googleBtn img {
   width: 18px;
   height: 18px;
+  vertical-align: middle;
+  display: inline-block;
 }
 
 .footerText {

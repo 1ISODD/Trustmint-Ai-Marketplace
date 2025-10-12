@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 import { ethers } from "ethers";
 
-function ConnectWallet() {
+function ConnectWallet({ isLoggedIn }) {   
   const [account, setAccount] = useState(null);
 
   useEffect(() => {
-    // Auto-detect wallet if already connected
+    if (!isLoggedIn) return; 
+
     if (window.ethereum) {
       window.ethereum.request({ method: "eth_accounts" }).then((accounts) => {
         if (accounts.length > 0) setAccount(accounts[0]);
@@ -15,9 +16,13 @@ function ConnectWallet() {
         setAccount(accounts[0] || null);
       });
     }
-  }, []);
+  }, [isLoggedIn]); 
 
   async function connectWallet() {
+     if (!isLoggedIn) {
+      alert("Please log in first to connect MetaMask.");
+      return;
+    }
     if (!window.ethereum) {
       alert("MetaMask not detected. Please install it.");
       return;

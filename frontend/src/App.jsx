@@ -6,10 +6,14 @@ import Developer from './pages/Developer'
 import Login from './pages/Login'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
-import ConnectWallet from "./components/ConnectWallet";
+import ConnectWallet from "./components/ConnectWallet"
+import Signup from './pages/signup';
+
 
 export default function App(){
-  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light')
+  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   useEffect(()=>{
     document.documentElement.setAttribute('data-theme', theme === 'dark' ? 'dark' : 'light')
     localStorage.setItem('theme', theme)
@@ -18,13 +22,18 @@ export default function App(){
   return (
     <>
       <Navbar theme={theme} setTheme={setTheme} />
-      <ConnectWallet />
+    <ConnectWallet isLoggedIn={isLoggedIn} />
+
       <div style={{minHeight:'calc(100vh - 220px)'}}>
         <Routes>
           <Route path='/' element={<Home/>} />
           <Route path='/marketplace' element={<Marketplace/>} />
           <Route path='/developer' element={<Developer/>} />
           <Route path='/login' element={<Login/>} />
+          <Route path='/signup' element={<Signup/>} />
+          <Route path='/login' element={<Login onLogin={() => setIsLoggedIn(true)} />} />
+
+
         </Routes>
       </div>
       <Footer />
